@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>agent-dyn</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.2-jre</version>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <finalName>agent-dyn</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <!--是否要把第三方jar放到manifest的classpath中 -->
+                                    <addClasspath>true</addClasspath>
+                                </manifest>
+                                <manifestEntries>
+                                    <Agent-Class>com.cm4j.agent.JavaDynAgent</Agent-Class>
+                                    <Can-Redefine-Classes>true</Can-Redefine-Classes>
+                                    <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                                </manifestEntries>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+
+
+    <!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            &lt;!&ndash;是否要把第三方jar放到manifest的classpath中 &ndash;&gt;-->
+<!--                            <addClasspath>true</addClasspath>-->
+<!--                        </manifest>-->
+<!--                        <manifestEntries>-->
+<!--                            <Agent-Class>com.cm4j.agent.JavaDynAgent</Agent-Class>-->
+<!--                            <Can-Redefine-Classes>true</Can-Redefine-Classes>-->
+<!--                            <Can-Retransform-Classes>true</Can-Retransform-Classes>-->
+<!--                        </manifestEntries>-->
+<!--                    </archive>-->
+<!--                    <descriptorRefs>-->
+<!--                        &lt;!&ndash;文件名后缀&ndash;&gt;-->
+<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--                    </descriptorRefs>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+</project>
